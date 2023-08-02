@@ -1,0 +1,144 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SY by Cegedim | Compare your data</title>
+  <link rel="icon" href="https://www.sybycegedim.com/PublishingImages/img/favicon.png" type="image/x-icon">
+  <script src="https://cdn.tailwindcss.com"></script>
+<!--  <link rel="stylesheet" href="style.css">-->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.7.0/flowbite.min.css" rel="stylesheet" />
+
+</head>
+<body>
+{% load static %}
+    <nav class="container p-1 bg-white border-gray-200 dark:bg-gray-900">
+        <div class="max-w-screen-xl flex flex-wrap items-center justify-between p-4">
+            <a href="firstPage.html" class="flex items-center">
+                <img src="https://www.sybycegedim.com/PublishingImages/img/favicon.png" class="w-24 h-33" alt="sy Logo" />
+            </a>
+        </div>
+    </nav>
+    <main class="flex flex-col items-center justify-center p-2 m-2">
+        <div class="flex flex-col items-center justify-center mb-12">
+            <h1 class="text-4xl text-center font-semibold mb-4 text-gray-900 lg:text-5xl lg:font-extrabold lg:leading-none dark:text-white lg:text-center xl:px-36 lg:mb-7">
+                Comparez vos données ici
+            </h1>
+            <div class="flex justify-center items-center">
+                <h3 class="text-xl text-center text-gray-900">
+                    Notre site web vous permettra de comparer les données dont vous avez besoin en un seul clic
+                </h3>
+                <img src="{% static 'icons8-tap-gesture.gif' %}" alt="">
+            </div>
+        </div>
+        <form class="flex items-center mt-4 mb-8" method="post" action="">
+            {% csrf_token %}
+            <button id="dropdownSearchButton" data-dropdown-toggle="dropdownSearch" class="simple-search bg-gray-50 rounded-full border text-gray px-10 mr-3 font-medium text-sm px-4 py-1 text-center inline-flex items-center " type="button">
+                Choisissez un site
+                <svg class="w-2.5 h-2.5 ml-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"/>
+                </svg>
+            </button>
+
+            <!-- Dropdown menu -->
+            <div id="dropdownSearch" class="z-10 hidden bg-white rounded-lg shadow w-60 dark:bg-gray-700 mt-4">
+                <ul class="h-48 px-3 pb-3 overflow-y-auto text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownSearchButton">
+                    <li>
+                        <div class="flex items-center p-2.5 rounded hover:bg-gray-100 dark:hover:bg-gray-600">
+                            <input id="checkbox-item-11" type="checkbox" name="WebSite" value="Verify" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
+                            <label for="checkbox-item-11" class="w-full ml-2 text-sm font-medium text-gray-900 rounded dark:text-gray-300">Verify</label>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="flex items-center p-2.5 rounded hover:bg-gray-100 dark:hover:bg-gray-600">
+                            <input id="checkbox-item-22" type="checkbox" name="WebSite" value="Societe" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
+                            <label for="checkbox-item-22" class="w-full ml-2 text-sm font-medium text-gray-900 rounded dark:text-gray-300">Societe</label>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="flex items-center p-2.5 rounded hover:bg-gray-100 dark:hover:bg-gray-600">
+                            <input id="checkbox-item-33" type="checkbox" name="WebSite" value="lefigaro" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
+                            <label for="checkbox-item-33" class="w-full ml-2 text-sm font-medium text-gray-900 rounded dark:text-gray-300">lefigaro</label>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="flex items-center p-2.5 rounded hover:bg-gray-100 dark:hover:bg-gray-600">
+                            <input id="checkbox-item-44" type="checkbox" name="WebSite" value="infogreffe" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
+                            <label for="checkbox-item-44" class="w-full ml-2 text-sm font-medium text-gray-900 rounded dark:text-gray-300">infogreffe</label>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="relative w-full">
+                <input type="text" id="simple-search" name="siren" class="simple-search bg-gray-50 border text-gray-900 rounded-full block w-full py-3 pl-5 md:pr-80 pr-12" placeholder="Veuillez entrer votre TVA" required>
+            </div>
+            <button type="submit" class="simple-search p-4 ml-2 text-sm font-medium text-white search-icon rounded-full">
+                <svg class="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
+                </svg>
+                <span class="sr-only">Search</span>
+            </button>
+
+<!--            <input type="file" name="" id="" value="import file">-->
+        </form>
+        <div>
+
+            <img src="{% static 'Woman-thinking.png' %}" style="max-width: 300px; max-height: 350px;" alt="Woman-thinking">
+        </div>
+         <section class="flex justify-around  h-[80vh] w-full">
+            <!-- card -->
+             {% for ele in ArrayOb %}
+             <div class="relative z-[1] h-96 w-[20vw] rounded-lg  bg-white shadow-2xl mt-44">
+                <div class="ribbon absolute -top-2 -left-2 h-40 w-40 overflow-hidden before:absolute before:top-0 before:right-0 before:-z-[1] before:border-4 before:border-blue-500 after:absolute after:left-0 after:bottom-0 after:-z-[1] after:border-4 after:border-blue-500">
+                    <div class="absolute -left-14 top-[43px] w-60 -rotate-45 bg-gradient-to-br from-[#1191D1] via-blue-400 to-[#1191D1] py-2.5 text-center text-white shadow-md">
+                        {{ ele.WebSite }}
+                    </div>
+                </div>
+                <div class="flex min-h-full items-center justify-center p-2">
+                     <p class="text-xl font-bold text-gray-600">
+                        <div class=" w-full p-4 flex  mt-12 gap-2  ">
+                            <div class=" gap-6 mt-4    flex flex-col">
+                            <img src="{% static 'Image20230801105942.png' %}" alt="" class=" p-2 ">
+                            <img src="{% static 'Image20230801105955.png' %}" alt="" class=" p-2 ">
+                            <img src="{% static 'Image20230801105942.png' %}g" alt="" class=" p-2 ">
+                            <img src="{% static 'Image20230801105942.png' %}" alt="" class=" p-2 ">
+                        </div>
+                        <div class=" w-[50%] gap-6 mt-4    flex flex-col">
+                            <div class="rounded-full bg-[#1FAACF] text-white font-semibold   p-2 text-center">
+                                Raison social
+                            </div>
+                            <div class="rounded-full bg-[#1FAACF] text-white font-semibold  p-2 text-center">
+                                Adresse
+                            </div>
+                            <div class="rounded-full bg-[#1FAACF] text-white font-semibold   p-2 text-center">
+                                SIREN
+                            </div>
+                            <div class="rounded-full bg-[#1FAACF] text-white font-semibold   p-2 text-center">
+                                Tva
+                            </div>
+                        </div>
+                        <div class=" w-[50%] gap-5 mt-4 flex flex-col">
+                            <div class="rounded-full border-2 border-[#1FAACF] text-black font-semibold  p-2 text-center">
+                                {{ ele.RaisonSociale }}
+                            </div>
+                            <div class="rounded-full border-2 border-[#1FAACF] text-black font-semibold  p-1 text-center">
+                                {{ ele.Adresse }}
+                            </div>
+                            <div class="rounded-full border-2 border-[#1FAACF] text-black font-semibold  p-2 text-center">
+                                {{ ele.SIREN }}
+                            </div>
+                            <div class="rounded-full border-2 border-[#1FAACF] text-black font-semibold  p-2 text-center">
+                                {{ ele.Tva }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+             {% endfor %}
+    </section>
+    </main>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.7.0/flowbite.min.js"></script>
+
+</body>
+</html>
