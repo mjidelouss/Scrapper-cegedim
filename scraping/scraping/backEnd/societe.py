@@ -55,6 +55,7 @@ def ScrapingData(data):
         "Adresse": "",
         "SIREN": "",
         "Tva": "",
+        "DIFFERENCE": ""
     }
 
     try:
