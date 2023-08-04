@@ -38,8 +38,9 @@ def export_users_xls(data):
     dt_string = now.strftime("%d/%m/%Y %H:%M:%S")
 
     df = pd.DataFrame(data)
+    home_dir = os.path.expanduser("~")
 
-    path = r'C:/Users/rdaoudi/Desktop'
+    path = home_dir + '\Downloads'
 
 
 
