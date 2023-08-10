@@ -50,12 +50,12 @@ def ScrapingData(data):
 
 
     res = {
-        "WebSite": "societe",
-        "RaisonSociale": "",
-        "Adresse": "",
-        "SIREN": "",
-        "Tva": "",
-        "DIFFERENCE": ""
+        "WebSite": "Societe",
+        "RaisonSociale": "NOT FOUND",
+        "Adresse": "NOT FOUND",
+        "SIREN": "NOT FOUND",
+        "Tva": "NOT FOUND",
+        "DIFFERENCE": "NOT FOUND"
     }
 
     try:

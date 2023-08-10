@@ -32,7 +32,7 @@ def tritement(data):
     table = data.find_all("tr", class_="bg")
 
     res = {
-        "WebSite": "verif",
+        "WebSite": "Verif",
         "RaisonSociale": "Not Found",
         "Adresse": "Not Found",
         "SIREN": "Not Found",

@@ -31,7 +31,7 @@ def getContent(connection):
 def tritement(data):
 
     res = {
-        "WebSite": "infogreffe",
+        "WebSite": "Infogreffe",
         "RaisonSociale": "Not Found",
         "Adresse": "Not Found",
         "SIREN": "Not Found",

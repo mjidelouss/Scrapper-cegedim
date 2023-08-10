@@ -28,5 +28,4 @@ urlpatterns = [
     path("",views.index, name="index"),
     path("import",views.import_, name="traitementFile"),
     path("download",createExel.export_users_xls, name="download"),
-    path('admin/', admin.site.urls),
 ]

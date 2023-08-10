@@ -1,4 +1,5 @@
 <!doctype html>
+{% load static %}
 <html>
 <head>
   <meta charset="UTF-8">
@@ -6,34 +7,85 @@
   <title>SY by Cegedim | Compare your data</title>
   <link rel="icon" href="https://www.sybycegedim.com/PublishingImages/img/favicon.png" type="image/x-icon">
   <script src="https://cdn.tailwindcss.com"></script>
-<!--  <link rel="stylesheet" href="style.css">-->
+  <link rel="stylesheet" href="{% static 'asset/style.css' %}">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.7.0/flowbite.min.css" rel="stylesheet" />
 
+    <style>
+            .spinner-5 {
+    width: 50px;
+    margin-top: 25px;
+    aspect-ratio: 1;
+    display: grid;
+    border: 6px solid transparent;
+    border-radius: 50%;
+    border-right-color: #3cb6d5;
+    animation: s5 1s infinite linear;
+
+}
+
+.spinner-5::before,
+.spinner-5::after {
+    content: "";
+  grid-area: 1/1;
+  margin: 2px;
+  border: inherit;
+  border-radius: 50%;
+  animation: s5 2s infinite;
+}
+
+.spinner-5::after {
+    margin: 10px;
+    animation-duration: 3s;
+}
+
+@keyframes s5 {
+    100% { transform: rotate(1turn); }
+}
+
+
+
+.hide-loader {
+    display: none;
+}
+    </style>
+
 </head>
-<style>
-    @import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
 
-    body {
-        font-family: 'Poppins', sans-serif;
-    }
-
-    .simple-search {
-        box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
-    }
-
-    .search-icon {
-        background-color: #3CB6D5 !important;
-    }
-</style>
 <body>
-{% load static %}
+
     <nav class="container p-1 bg-white border-gray-200 dark:bg-gray-900">
         <div class="max-w-screen-xl flex flex-wrap items-center justify-between p-4">
-            <a href="firstPage.html" class="flex items-center">
-                <img src="https://www.sybycegedim.com/PublishingImages/img/favicon.png" class="w-24 h-33" alt="sy Logo" />
+            <a href="{% url 'index' %}" class="flex items-center">
+                <img src="{% static 'SY-cegedim-logo.png' %}" class="w-28 h-35" alt="sy Logo" />
             </a>
         </div>
+
     </nav>
+    <div id="alert-container">
+    {% if messages %}
+    <ul class="messages flex justify-end mr-4">
+        {% for message in messages %}
+        <div class="alert flex items-center p-4 mb-4 text-green-800 rounded-lg bg-green-100 dark:bg-gray-800 dark:text-green-400 w-[25%]" id="alert-3" ...>
+     <svg class="flex-shrink-0 w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z"/>
+              </svg>
+              <span class="sr-only">Info</span>
+              <div class="ml-3 text-sm font-medium ">
+              {% if message.tags %} {% endif %} {{ message }}
+              </div>
+              <button type="button" class="ml-auto -mx-1.5 -my-1.5 bg-green-50 text-green-500 rounded-lg focus:ring-2 focus:ring-green-400 p-1.5 hover:bg-green-200 inline-flex items-center justify-center h-8 w-8 dark:bg-gray-800 dark:text-green-400 dark:hover:bg-gray-700" data-dismiss-target="#alert-3" aria-label="Close">
+                <span class="sr-only">Close</span>
+                <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+                </svg>
+              </button>
+        </div>
+        {% endfor %}
+    </ul>
+    {% endif %}
+</div>
+
+
     <main class="flex flex-col items-center justify-center p-2 m-2">
         <div class="flex flex-col items-center justify-center mb-12">
             <h1 class="text-4xl text-center font-semibold mb-4 text-gray-900 lg:text-5xl lg:font-extrabold lg:leading-none dark:text-white lg:text-center xl:px-36 lg:mb-7">
@@ -41,12 +93,12 @@
             </h1>
             <div class="flex justify-center items-center">
                 <h3 class="text-xl text-center text-gray-900">
-                    Notre site web vous permettra de comparer les données dont vous avez besoin en un seul clic
+                    Notre site web vous offre la possibilité de vérifier vos données nécessaires en un seul clic
                 </h3>
-                <img src="{% static 'icons8-tap-gesture.gif' %}" alt="">
+<!--                <img src="{% static 'icons8-tap-gesture.gif' %}" alt="">-->
             </div>
         </div>
-        <form class="flex items-center mt-4 mb-8" method="post" action="">
+        <form class="flex items-center mt-4 mb-8" id="myForm" method="post" action="">
             {% csrf_token %}
             <button id="dropdownSearchButton" data-dropdown-toggle="dropdownSearch" class="simple-search bg-gray-50 rounded-full border text-gray px-10 mr-3 font-medium text-sm px-4 py-1 text-center inline-flex items-center " type="button">
                 Choisissez un site
@@ -54,39 +106,47 @@
                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"/>
                 </svg>
             </button>
-
             <!-- Dropdown menu -->
             <div id="dropdownSearch" class="z-10 hidden bg-white rounded-lg shadow w-60 dark:bg-gray-700 mt-4">
                 <ul class="h-48 px-3 pb-3 overflow-y-auto text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownSearchButton">
                     <li>
                         <div class="flex items-center p-2.5 rounded hover:bg-gray-100 dark:hover:bg-gray-600">
-                            <input id="checkbox-item-11" type="checkbox" name="WebSite" value="Verify" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
+                            <input id="checkbox-item-11" type="checkbox" name="WebSite" value="Verify" class="checkbox w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
                             <label for="checkbox-item-11" class="w-full ml-2 text-sm font-medium text-gray-900 rounded dark:text-gray-300">Verify</label>
                         </div>
                     </li>
                     <li>
                         <div class="flex items-center p-2.5 rounded hover:bg-gray-100 dark:hover:bg-gray-600">
-                            <input id="checkbox-item-22" type="checkbox" name="WebSite" value="Societe" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
+                            <input id="checkbox-item-22" type="checkbox" name="WebSite" value="Societe" class="checkbox w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
                             <label for="checkbox-item-22" class="w-full ml-2 text-sm font-medium text-gray-900 rounded dark:text-gray-300">Societe</label>
                         </div>
                     </li>
                     <li>
                         <div class="flex items-center p-2.5 rounded hover:bg-gray-100 dark:hover:bg-gray-600">
-                            <input id="checkbox-item-33" type="checkbox" name="WebSite" value="lefigaro" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
+                            <input id="checkbox-item-33" type="checkbox" name="WebSite" value="lefigaro" class="checkbox w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
                             <label for="checkbox-item-33" class="w-full ml-2 text-sm font-medium text-gray-900 rounded dark:text-gray-300">lefigaro</label>
                         </div>
                     </li>
                     <li>
                         <div class="flex items-center p-2.5 rounded hover:bg-gray-100 dark:hover:bg-gray-600">
-                            <input id="checkbox-item-44" type="checkbox" name="WebSite" value="infogreffe" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
+                            <input id="checkbox-item-44" type="checkbox" name="WebSite" value="infogreffe" class="checkbox w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
                             <label for="checkbox-item-44" class="w-full ml-2 text-sm font-medium text-gray-900 rounded dark:text-gray-300">infogreffe</label>
                         </div>
                     </li>
                 </ul>
             </div>
 
+<!--            <div class="relative w-full">-->
+<!--                <input type="search" id="simple-search" name="siren" class="simple-search rounded-full shadow-lg  border-0 drop-shadow-xl w-[50%] bg-gray-50 border text-gray-900 rounded-full block w-full py-3 pl-5 md:pr-80 pr-12" placeholder="Veuillez entrer votre SIREN Ou Adresse                        " required>-->
+<!--            </div>-->
+<!--            <button type="submit" class="simple-search p-4 ml-2 text-sm font-medium text-white search-icon rounded-full">-->
+<!--                <svg class="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">-->
+<!--                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>-->
+<!--                </svg>-->
+<!--                <span class="sr-only">Search</span>-->
+<!--            </button>-->
             <div class="relative w-full">
-                <input type="search" id="simple-search" name="siren" class="simple-search rounded-full shadow-lg  border-0 drop-shadow-xl w-[50%] bg-gray-50 border text-gray-900 rounded-full block w-full py-3 pl-5 md:pr-80 pr-12" placeholder="Veuillez entrer votre SIREN" required>
+                <input type="search" id="simple-search" name="siren" class="simple-search rounded-full shadow-lg  border-0 drop-shadow-xl w-[50%] bg-gray-50 border text-gray-900 rounded-full block w-full py-3 pl-5 md:pr-80 pr-12" placeholder="Veuillez entrer votre SIREN ou Adresse" required>
             </div>
             <button type="submit" class="simple-search p-4 ml-2 text-sm font-medium text-white search-icon rounded-full">
                 <svg class="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
@@ -100,11 +160,12 @@
                 Ou
             </h3>
         </div>
+
         <div class="flex justify-center items-center">
 
-            <button data-modal-target="import-modal" data-modal-toggle="import-modal" class="search-icon text-sm block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg lg:text-base px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button">
-              Importez un fichier
-            </button>
+        <button data-modal-target="import-modal" data-modal-toggle="import-modal" class="search-icon text-sm block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg lg:text-base px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button">
+          Importez un fichier
+        </button>
 
 <!--            <a href="{% url 'download' %}" class="search-icon text-sm block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg lg:text-base px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" >Exportez un fichier</a>-->
 
@@ -133,63 +194,100 @@
                                         <input id="dropzone-file" type="file" name="excel_file" class="hidden" required />
                                     </label>
                                 </div>
-                                <button type="submit" class="search-icon w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Importer</button>
+                                <button id="import-button" type="submit" class="search-icon w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" data-modal-hide="import-modal">Importer</button>
                             </form>
                         </div>
                     </div>
                 </div>
             </div>
+
         </div>
 
-        {% if not ArrayOb %}
-            <img src="{% static 'Woman-thinking.png' %}" style="max-width: 300px; max-height: 350px;" alt="Woman-thinking">
+        <div id="content">
+    {% if not ArrayOb and not ArraySiren %}
+        <img id="womenThink" src="{% static 'Woman-thinking.png' %}" style="max-width: 300px; max-height: 350px;" alt="Woman-thinking">
+    {% endif %}
+</div>
+
+
+        <div id="loader" class="spinner-5 hide-loader w-[5vw]"></div>
+        {% if ArraySiren %}
+            <div class="rounded-lg bg-white p-6 shadow-xl w-3/5  mt-20">
+            <div class="flex flex-row justify-center">
+                <h3 class="text-lg text-center font-semibold text-grey w-3/5 mb-4">
+                    Les numéros SIREN associés à l'adresse que vous avez fournie ont été détectés.
+                    Cliquez pour consulter les informations relatives
+                    à ces SIREN sur les quatre sites.
+                </h3>
+            </div>
+            <div class="flex flex-row gap-8 justify-center">
+                {% for siren in ArraySiren %}
+                        <button type="button" id="{{siren}}" onclick="handleButtonClick({{siren}})" class="text-white bg-gradient-to-br from-[#1191D1] via-blue-400 to-[#1191D1] focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-xl px-5 py-2.5 text-center mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">{{siren}}</button>
+                {% endfor %}
+            </div>
+        </div>
         {% endif %}
-         <section class="flex justify-around  h-[80vh] w-full">
+         <section class="flex justify-around  h-[80vh] w-full flex-wrap">
             <!-- card -->
              {% for ele in ArrayOb %}
-<div class="relative z-[1] h-96 w-[22vw] rounded-lg  bg-white shadow-2xl mt-44">
-                <div class="ribbon absolute -top-2 -left-2 h-40 w-40 overflow-hidden before:absolute before:top-0 before:right-0 before:-z-[1] before:border-4 before:border-blue-500 after:absolute after:left-0 after:bottom-0 after:-z-[1] after:border-4 after:border-blue-500">
-                    <div class="absolute -left-14 top-[43px] w-60 -rotate-45 bg-gradient-to-br from-[#1191D1] via-blue-400 to-[#1191D1] py-2.5 text-center text-white shadow-md">
-                        {{ ele.WebSite }}
+                <div class="relative z-[1] h-96 w-[22vw] rounded-lg  bg-white shadow-2xl mt-24">
+                    <div class="ribbon absolute -top-2 -left-2 h-40 w-40 overflow-hidden before:absolute before:top-0 before:right-0 before:-z-[1] before:border-4 before:border-blue-500 after:absolute after:left-0 after:bottom-0 after:-z-[1] after:border-4 after:border-blue-500">
+                        <div class="absolute -left-14 top-[43px] w-60 -rotate-45 bg-gradient-to-br from-[#1191D1] via-blue-400 to-[#1191D1] py-2.5 text-center text-white shadow-md">
+                            {{ ele.WebSite }}
+                        </div>
                     </div>
-                </div>
-                <div class="flex min-h-full items-center justify-center p-2 mt-8 gap-2">
-                     <p class="text-xl font-bold text-gray-600">
+                    <div class="flex min-h-full items-center justify-center p-2 mt-8 gap-2">
+                         <p class="text-xl font-bold text-gray-600">
 
-                        <div class=" w-[30%] gap-6 mt-4    flex flex-col">
-                            <div class="rounded-full bg-[#1FAACF] text-white font-semibold   p-2 text-center">
-                                Raison social
+                            <div class=" w-[30%] gap-8 mt-4    flex flex-col">
+                                <div class="rounded-full bg-[#1FAACF] text-white font-semibold   p-2 text-center">
+                                    Raison social
+                                </div>
+                                <div class="rounded-full bg-[#1FAACF] text-white font-semibold  p-2 text-center">
+                                    Adresse
+                                </div>
+                                <div class="rounded-full bg-[#1FAACF] text-white font-semibold   p-2 text-center">
+                                    SIREN
+                                </div>
+                                <div class="rounded-full bg-[#1FAACF] text-white font-semibold   p-2 text-center">
+                                    Tva
+                                </div>
                             </div>
-                            <div class="rounded-full bg-[#1FAACF] text-white font-semibold  p-2 text-center">
-                                Adresse
-                            </div>
-                            <div class="rounded-full bg-[#1FAACF] text-white font-semibold   p-2 text-center">
-                                SIREN
-                            </div>
-                            <div class="rounded-full bg-[#1FAACF] text-white font-semibold   p-2 text-center">
-                                Tva
-                            </div>
-                        </div>
-                        <div class=" w-[60%] gap-5 mt-4 flex flex-col justify-center">
-                            <div class="rounded-full border-2 border-[#1FAACF] text-black font-semibold  p-2 text-center ">
-                                {{ ele.RaisonSociale }}
-                            </div>
-                            <div class="rounded-full border-2 border-[#1FAACF] whitespace-nowrap w-fit text-black font-semibold text-sm  p-2 text-center m-center">
-                                {{ ele.Adresse }}
-                            </div>
-                            <div class="rounded-full border-2 border-[#1FAACF] text-black font-semibold  p-2 text-center">
-                                {{ ele.SIREN }}
-                            </div>
-                            <div class="rounded-full border-2 border-[#1FAACF] text-black font-semibold  p-2 text-center">
-                                {{ ele.Tva }}
+                            <div class=" w-[60%] gap-5 mt-4 flex flex-col justify-center">
+                                <div class="rounded-full border-2 border-[#1FAACF] text-black font-semibold  p-2 text-center ">
+                                    {{ ele.RaisonSociale }}
+                                </div>
+                                <div class="rounded-full border-2 border-[#1FAACF]  w-fit text-black font-semibold text-sm  p-2 text-center m-center w-full">
+                                    {{ ele.Adresse }}
+                                </div>
+                                <div class="rounded-full border-2 border-[#1FAACF] text-black font-semibold  p-2 text-center">
+                                    {{ ele.SIREN }}
+                                </div>
+                                <div class="rounded-full border-2 border-[#1FAACF] text-black font-semibold  p-2 text-center">
+                                    {{ ele.Tva }}
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>             {% endfor %}
+             {% endfor %}
     </section>
     </main>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.7.0/flowbite.min.js"></script>
+    <script src="{% static 'asset/script.js' %}"></script>
+    <script src="{% static 'asset/loading.js' %}"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const alerts = document.querySelectorAll('.alert');
+
+        alerts.forEach(function(alert) {
+            setTimeout(function() {
+                alert.remove();
+            }, 2000); // 3000 milliseconds = 3 seconds
+        });
+    });
+</script>
+
 
 </body>
 </html>

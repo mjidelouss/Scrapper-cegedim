@@ -1,6 +1,4 @@
-import pandas as pt
 import difflib
-
 def Search(data):
     try:
 

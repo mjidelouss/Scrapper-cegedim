@@ -1,0 +1,50 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+
+    body {
+        font-family: 'Poppins', sans-serif;
+    }
+
+    .simple-search {
+        box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
+    }
+
+    .search-icon {
+        background-color: #3CB6D5 !important;
+    }
+
+    .spinner-5 {
+    width: 50px;
+    margin-top: 25px;
+    aspect-ratio: 1;
+    display: grid;
+    border: 6px solid transparent;
+    border-radius: 50%;
+    border-right-color: #3cb6d5;
+    animation: s5 1s infinite linear;
+
+}
+
+.spinner-5::before,
+.spinner-5::after {
+    content: "";
+  grid-area: 1/1;
+  margin: 2px;
+  border: inherit;
+  border-radius: 50%;
+  animation: s5 2s infinite;
+}
+
+.spinner-5::after {
+    margin: 10px;
+    animation-duration: 3s;
+}
+
+@keyframes s5 {
+    100% { transform: rotate(1turn); }
+}
+
+
+
+.hide-loader {
+    display: none;
+}
